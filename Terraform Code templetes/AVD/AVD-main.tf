@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
   tags = var.tags
 }
-
+# create Vnet
 resource "azurerm_virtual_network" "Vnet-AVD"{
   name = "Vnet-AVD"
   location = azurerm_resource_group.rg.location
@@ -15,7 +15,11 @@ resource "azurerm_virtual_network" "Vnet-AVD"{
     address_prefix = "10.0.3.0/24"
   }
 }
-
+# Create AAD group
+resource "azuread_group" "Win365-Users" {
+  display_name = "Win365-Users"
+  security_enabled = true
+}
 # Create AVD workspace
 resource "azurerm_virtual_desktop_workspace" "workspace" {
   name                = var.workspace
